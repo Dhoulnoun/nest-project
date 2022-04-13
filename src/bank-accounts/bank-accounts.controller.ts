@@ -35,7 +35,7 @@ export class BankAccountsController {
   async findOne(@Param('id') id: number) {
     const bankAccount = await this.bankAccountsService.findOne(+id);
     if (bankAccount) return bankAccount;
-    throw new HttpException('Article not found', HttpStatus.NOT_FOUND);
+    throw new HttpException('Account not found', HttpStatus.NOT_FOUND);
   }
 
   @Patch(':id')

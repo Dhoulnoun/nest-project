@@ -1,1 +1,3 @@
-export class CreateBankAccountTypeDto {}
+export class CreateBankAccountTypeDto {
+  type: string;
+}

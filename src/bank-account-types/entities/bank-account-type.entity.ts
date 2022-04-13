@@ -6,7 +6,11 @@ export class BankAccountTypeEntity {
   @PrimaryGeneratedColumn({ name: 'id_account_type' })
   id: number;
 
-  @Column()
+  @Column({
+    type: 'varchar',
+    length: 50,
+    unique: true,
+  })
   type: string;
 
   @OneToMany(() => BankAccountEntity, (bankAccount) => bankAccount.id)

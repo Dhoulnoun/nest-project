@@ -1,26 +1,42 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBankAccountTypeDto } from './dto/create-bank-account-type.dto';
 import { UpdateBankAccountTypeDto } from './dto/update-bank-account-type.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { BankAccountTypeEntity } from './entities/bank-account-type.entity';
 
 @Injectable()
 export class BankAccountTypesService {
-  create(createBankAccountTypeDto: CreateBankAccountTypeDto) {
-    return 'This action adds a new bankAccountType';
+  constructor(
+    @InjectRepository(BankAccountTypeEntity)
+    private readonly bankAccountTypeRepository: Repository<BankAccountTypeEntity>,
+  ) {}
+
+  async create(createBankAccountTypeDto: CreateBankAccountTypeDto) {
+    return await this.bankAccountTypeRepository.save(createBankAccountTypeDto);
   }
 
   findAll() {
-    return `This action returns all bankAccountTypes`;
+    return this.bankAccountTypeRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} bankAccountType`;
+  async findOne(id: number) {
+    const bankAccountType = await this.bankAccountTypeRepository.findOne(id);
+    if (bankAccountType) return bankAccountType;
+    else return null;
   }
 
-  update(id: number, updateBankAccountTypeDto: UpdateBankAccountTypeDto) {
-    return `This action updates a #${id} bankAccountType`;
+  async update(id: number, updateBankAccountTypeDto: UpdateBankAccountTypeDto) {
+    const bankAccountType = await this.bankAccountTypeRepository.findOne(id);
+    if (!bankAccountType) return null;
+    await this.bankAccountTypeRepository.update(id, updateBankAccountTypeDto);
+    return await this.bankAccountTypeRepository.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} bankAccountType`;
+  async remove(id: number) {
+    const bankAccountType = await this.bankAccountTypeRepository.findOne(id);
+    if (!bankAccountType) return null;
+    await this.bankAccountTypeRepository.remove(bankAccountType);
+    return bankAccountType;
   }
 }
