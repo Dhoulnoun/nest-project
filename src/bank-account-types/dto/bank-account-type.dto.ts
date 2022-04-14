@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { BankAccountType } from '../entities/bank-account-type.entity';
 
 export class BankAccountTypeDto {
   @ApiProperty({
@@ -11,8 +12,8 @@ export class BankAccountTypeDto {
   @ApiProperty({
     required: true,
     description: 'type of bank account',
-    type: 'string',
+    type: 'enum',
     example: 'Livret A',
   })
-  type: string;
+  type: BankAccountType;
 }

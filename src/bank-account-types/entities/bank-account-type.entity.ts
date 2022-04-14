@@ -1,17 +1,24 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { BankAccountEntity } from '../../bank-accounts/entities/bank-account.entity';
+import { Collection } from '@nestjs/cli/lib/schematics';
 
+export enum BankAccountType {
+  'Livret A',
+  'Livret Jeune',
+  'Compte Courrant',
+  'Compte Joint',
+}
 @Entity('account-types')
 export class BankAccountTypeEntity {
   @PrimaryGeneratedColumn({ name: 'id_account_type' })
   id: number;
 
   @Column({
-    type: 'varchar',
-    length: 50,
-    unique: true,
+    type: 'enum',
+    enum: BankAccountType,
+    default: BankAccountType['Livret A'],
   })
-  type: string;
+  type: BankAccountType;
 
   @OneToMany(() => BankAccountEntity, (bankAccount) => bankAccount.id)
   Accounts: BankAccountEntity[];

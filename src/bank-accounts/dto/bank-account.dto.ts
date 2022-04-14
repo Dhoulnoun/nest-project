@@ -1,5 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { BankAccountTypeEntity } from '../../bank-account-types/entities/bank-account-type.entity';
+import {
+  BankAccountType,
+  BankAccountTypeEntity,
+} from '../../bank-account-types/entities/bank-account-type.entity';
 
 export class BankAccountDto {
   @ApiProperty({
@@ -36,5 +39,5 @@ export class BankAccountDto {
     description: " Account owner's type of account",
     type: 'BankAccountDto',
   })
-  type: BankAccountTypeEntity;
+  type: BankAccountType;
 }
