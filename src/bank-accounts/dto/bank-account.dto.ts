@@ -10,23 +10,31 @@ export class BankAccountDto {
   id: number;
 
   @ApiProperty({
+    required: true,
     description: 'Name of the bank account owner',
     type: 'string',
   })
   name: string;
 
   @ApiProperty({
+    required: true,
     description: 'Last name of the bank account owner',
     type: 'string',
   })
   lastName: string;
 
   @ApiProperty({
+    required: true,
     description: ' Current Balance of the bank account owner',
     type: 'number',
   })
   balance: number;
 
-  @ApiProperty({ enum: [] })
+  @ApiProperty({
+    required: true,
+    enum: [],
+    description: " Account owner's type of account",
+    type: 'BankAccountDto',
+  })
   type: BankAccountTypeEntity;
 }
