@@ -12,6 +12,9 @@ import {
 import { BankAccountsService } from './bank-accounts.service';
 import { CreateBankAccountDto } from './dto/create-bank-account.dto';
 import { UpdateBankAccountDto } from './dto/update-bank-account.dto';
+import { BankAccountEntity } from './entities/bank-account.entity';
+import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import { CreateBankAccountTypeDto } from '../bank-account-types/dto/create-bank-account-type.dto';
 
 @Controller('bank-accounts')
 export class BankAccountsController {
@@ -56,5 +59,20 @@ export class BankAccountsController {
     const bankAccount = await this.bankAccountsService.remove(id);
     if (bankAccount) return bankAccount;
     throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+  }
+  @ApiOperation({
+    summary: 'Increase the balance on a given account',
+    description:
+      'Increase the balance of a user identified by id by a certain sum',
+  })
+  @ApiOkResponse({
+    description: 'Amoount changed successfully ',
+    type: CreateBankAccountTypeDto,
+  })
+  @Post(':id/add/:sum')
+  async addToBalance(@Param() { id, sum }: { id: number; sum: number }) {
+    const bankAccount = await this.bankAccountsService.addToBalance(id, sum);
+    if (bankAccount) return bankAccount;
+    throw new HttpException('Not updated', HttpStatus.NOT_MODIFIED);
   }
 }

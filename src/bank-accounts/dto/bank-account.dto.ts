@@ -1,7 +1,14 @@
-import { BankAccountTypeEntity } from '../../bank-account-types/entities/bank-account-type.entity';
 import { ApiProperty } from '@nestjs/swagger';
+import { BankAccountTypeEntity } from '../../bank-account-types/entities/bank-account-type.entity';
 
-export class CreateBankAccountDto {
+export class BankAccountDto {
+  @ApiProperty({
+    required: true,
+    type: 'number',
+    description: 'Id of the account owner',
+  })
+  id: number;
+
   @ApiProperty({
     description: 'Name of the bank account owner',
     type: 'string',

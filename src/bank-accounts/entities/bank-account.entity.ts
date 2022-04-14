@@ -1,10 +1,11 @@
 import {
   Column,
   Entity,
-  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 import { BankAccountTypeEntity } from '../../bank-account-types/entities/bank-account-type.entity';
 
@@ -25,9 +26,8 @@ export class BankAccountEntity {
   @UpdateDateColumn()
   lastTransaction: Date;
 
-  @ManyToOne(
-    () => BankAccountTypeEntity,
-    (bankAccountType) => bankAccountType.type,
-  )
+  @ManyToOne(() => BankAccountTypeEntity, (type) => type.type, {
+    onDelete: 'SET NULL',
+  })
   type: BankAccountTypeEntity;
 }

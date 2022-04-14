@@ -14,5 +14,5 @@ export class BankAccountTypeEntity {
   type: string;
 
   @OneToMany(() => BankAccountEntity, (bankAccount) => bankAccount.id)
-  Account: BankAccountEntity;
+  Accounts: BankAccountEntity[];
 }
