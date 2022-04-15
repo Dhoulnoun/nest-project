@@ -73,7 +73,7 @@ export class BankEmployeesController {
     description: 'Bank employee not found',
   })
   async findOne(@Param('id') id: string) {
-    const bankEmployee = await this.bankEmployeesService.findOne(+id);
+    const bankEmployee = await this.bankEmployeesService.findOne(id);
     if (bankEmployee) return bankEmployee;
     throw new HttpException('Employee not found', HttpStatus.NOT_FOUND);
   }
@@ -103,7 +103,7 @@ export class BankEmployeesController {
     @Body() updateBankEmployeeDto: UpdateBankEmployeeDto,
   ) {
     const bankEmployee = await this.bankEmployeesService.update(
-      +id,
+      id,
       updateBankEmployeeDto,
     );
     if (bankEmployee) return bankEmployee;
@@ -123,7 +123,7 @@ export class BankEmployeesController {
     description: 'Bank employee not found',
   })
   async remove(@Param('id') id: string) {
-    const bankEmployee = await this.bankEmployeesService.remove(+id);
+    const bankEmployee = await this.bankEmployeesService.remove(id);
     if (bankEmployee) return bankEmployee;
     throw new HttpException('Employee not found', HttpStatus.NOT_FOUND);
   }

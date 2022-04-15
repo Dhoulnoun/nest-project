@@ -19,19 +19,19 @@ export class BankEmployeesService {
     return await this.bankEmployeesRepository.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const bankEmployee = await this.bankEmployeesRepository.findOne(id);
     return bankEmployee ? bankEmployee : null;
   }
 
-  async update(id: number, updateBankEmployeeDto: UpdateBankEmployeeDto) {
+  async update(id: string, updateBankEmployeeDto: UpdateBankEmployeeDto) {
     const bankEmployee = await this.bankEmployeesRepository.findOne(id);
     if (!bankEmployee) return null;
     await this.bankEmployeesRepository.update(id, updateBankEmployeeDto);
     return await this.bankEmployeesRepository.findOne(id);
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     const bankEmployee = await this.bankEmployeesRepository.findOne(id);
     if (!bankEmployee) return null;
     await this.bankEmployeesRepository.remove(bankEmployee);
