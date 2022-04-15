@@ -24,7 +24,7 @@ import {
 
 import { BankEmployeeDto } from './dto/bank-employee.dto';
 
-@ApiTags('BankAccounts')
+@ApiTags('BankEmployees')
 @Controller('bank-employees')
 export class BankEmployeesController {
   constructor(private readonly bankEmployeesService: BankEmployeesService) {}
