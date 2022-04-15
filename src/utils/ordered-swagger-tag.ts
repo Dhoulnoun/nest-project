@@ -1,7 +1,7 @@
 enum Tags {
   BankAccounts = 1,
   BankAccountTypes,
-  Cats,
+  BankEmployees,
 }
 export function getTag(str: string | number | Tags) {
   let tagName, tagValue;
