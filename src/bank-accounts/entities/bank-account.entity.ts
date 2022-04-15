@@ -7,7 +7,10 @@ import {
   JoinColumn,
   ManyToOne,
 } from 'typeorm';
-import { BankAccountType, BankAccountTypeEntity } from "../../bank-account-types/entities/bank-account-type.entity";
+import {
+  BankAccountType,
+  BankAccountTypeEntity,
+} from '../../bank-account-types/entities/bank-account-type.entity';
 
 @Entity('bankAccount')
 export class BankAccountEntity {

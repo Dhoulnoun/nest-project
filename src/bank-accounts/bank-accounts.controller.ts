@@ -8,6 +8,7 @@ import {
   Delete,
   HttpException,
   HttpStatus,
+  UseFilters,
 } from '@nestjs/common';
 import { BankAccountsService } from './bank-accounts.service';
 import { CreateBankAccountDto } from './dto/create-bank-account.dto';
@@ -22,6 +23,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { BankAccountDto } from './dto/bank-account.dto';
+
 @ApiTags('BankAccounts')
 @Controller('bank-accounts')
 export class BankAccountsController {
