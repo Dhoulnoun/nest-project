@@ -1,10 +1,8 @@
 import {
   Column,
   Entity,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  JoinColumn,
   ManyToOne,
 } from 'typeorm';
 import {
@@ -23,7 +21,7 @@ export class BankAccountEntity {
   @Column()
   lastName: string;
 
-  @Column({ type: 'money', default: 0 })
+  @Column({ type: 'int', default: 0 })
   balance: number;
 
   @UpdateDateColumn()

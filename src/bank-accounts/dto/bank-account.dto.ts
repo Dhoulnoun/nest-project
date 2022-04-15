@@ -1,8 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  BankAccountType,
-  BankAccountTypeEntity,
-} from '../../bank-account-types/entities/bank-account-type.entity';
+import { BankAccountType } from '../../bank-account-types/entities/bank-account-type.entity';
+import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 export class BankAccountDto {
   @ApiProperty({
@@ -10,6 +8,7 @@ export class BankAccountDto {
     type: 'number',
     description: 'Id of the account owner',
   })
+  @IsInt()
   id: number;
 
   @ApiProperty({
@@ -17,6 +16,8 @@ export class BankAccountDto {
     description: 'Name of the bank account owner',
     type: 'string',
   })
+  @IsString()
+  @IsNotEmpty()
   name: string;
 
   @ApiProperty({
@@ -24,6 +25,8 @@ export class BankAccountDto {
     description: 'Last name of the bank account owner',
     type: 'string',
   })
+  @IsString()
+  @IsNotEmpty()
   lastName: string;
 
   @ApiProperty({
@@ -31,6 +34,8 @@ export class BankAccountDto {
     description: ' Current Balance of the bank account owner',
     type: 'number',
   })
+  @IsInt()
+  @IsNotEmpty()
   balance: number;
 
   @ApiProperty({

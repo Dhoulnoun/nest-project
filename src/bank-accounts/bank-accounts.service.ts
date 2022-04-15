@@ -1,4 +1,4 @@
-import { Injectable, ParseIntPipe, Patch } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateBankAccountDto } from './dto/create-bank-account.dto';
 import { UpdateBankAccountDto } from './dto/update-bank-account.dto';
 import { Repository } from 'typeorm';

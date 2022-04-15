@@ -1,6 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { BankAccountEntity } from '../../bank-accounts/entities/bank-account.entity';
-import { Collection } from '@nestjs/cli/lib/schematics';
 
 export enum BankAccountType {
   'Livret A',

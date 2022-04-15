@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { BankAccountType } from '../entities/bank-account-type.entity';
+import { IsInt, IsNotEmpty } from 'class-validator';
 
 export class BankAccountTypeDto {
   @ApiProperty({
@@ -7,6 +8,7 @@ export class BankAccountTypeDto {
     type: 'number',
     description: 'id of the bank account type',
   })
+  @IsInt()
   id: number;
 
   @ApiProperty({
@@ -15,5 +17,6 @@ export class BankAccountTypeDto {
     type: 'enum',
     example: 'Livret A',
   })
+  @IsNotEmpty()
   type: BankAccountType;
 }

@@ -11,7 +11,9 @@ describe('BankAccountTypesController', () => {
       providers: [BankAccountTypesService],
     }).compile();
 
-    controller = module.get<BankAccountTypesController>(BankAccountTypesController);
+    controller = module.get<BankAccountTypesController>(
+      BankAccountTypesController,
+    );
   });
 
   it('should be defined', () => {

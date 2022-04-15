@@ -8,7 +8,8 @@ import {
   Delete,
   HttpException,
   HttpStatus,
-  UseFilters,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { BankAccountsService } from './bank-accounts.service';
 import { CreateBankAccountDto } from './dto/create-bank-account.dto';
@@ -41,6 +42,7 @@ export class BankAccountsController {
     status: 304,
     description: 'Unable to create a new bank account.',
   })
+  @UsePipes(ValidationPipe)
   async create(@Body() createBankAccountDto: CreateBankAccountDto) {
     const bankAccount = await this.bankAccountsService.create(
       createBankAccountDto,
@@ -74,6 +76,7 @@ export class BankAccountsController {
   @ApiNotFoundResponse({
     description: 'Bank account not found',
   })
+  @UsePipes(ValidationPipe)
   async findOne(@Param('id') id: number) {
     const bankAccount = await this.bankAccountsService.findOne(+id);
     if (bankAccount) return bankAccount;
@@ -100,6 +103,7 @@ export class BankAccountsController {
     name: 'id',
     description: "The bank account's id",
   })
+  @UsePipes(ValidationPipe)
   async update(
     @Param() { id }: { id: number },
     @Body() updateBankAccountDto: UpdateBankAccountDto,
@@ -124,6 +128,7 @@ export class BankAccountsController {
   @ApiNotFoundResponse({
     description: 'Bank account not found',
   })
+  @UsePipes(ValidationPipe)
   async remove(@Param('id') id: number) {
     const bankAccount = await this.bankAccountsService.remove(id);
     if (bankAccount) return bankAccount;
