@@ -72,26 +72,8 @@ export class BankEmployeesController {
   @ApiNotFoundResponse({
     description: 'Bank employee not found',
   })
-  async findOneById(@Param('id') id: string) {
-    const bankEmployee = await this.bankEmployeesService.findOneById(id);
-    if (bankEmployee) return bankEmployee;
-    throw new HttpException('Employee not found', HttpStatus.NOT_FOUND);
-  }
-
-  @Get(':email')
-  @ApiOperation({
-    summary: 'Returns a single bank employee',
-    description: 'Returns a specific employee account found by email',
-  })
-  @ApiOkResponse({
-    description: 'Bank employee successfully returned',
-    type: BankEmployeeDto,
-  })
-  @ApiNotFoundResponse({
-    description: 'Bank employee not found',
-  })
-  async findOneByMail(@Param('email') email: string) {
-    const bankEmployee = await this.bankEmployeesService.findOneByMail(email);
+  async findOne(@Param('id') id: string) {
+    const bankEmployee = await this.bankEmployeesService.findOne(id);
     if (bankEmployee) return bankEmployee;
     throw new HttpException('Employee not found', HttpStatus.NOT_FOUND);
   }
