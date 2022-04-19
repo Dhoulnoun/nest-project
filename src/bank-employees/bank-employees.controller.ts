@@ -8,6 +8,10 @@ import {
   Delete,
   HttpException,
   HttpStatus,
+  CacheKey,
+  CacheTTL,
+  UseInterceptors,
+  CacheInterceptor,
 } from '@nestjs/common';
 import { BankEmployeesService } from './bank-employees.service';
 import { CreateBankEmployeeDto } from './dto/create-bank-employee.dto';
@@ -23,9 +27,12 @@ import {
 } from '@nestjs/swagger';
 
 import { BankEmployeeDto } from './dto/bank-employee.dto';
+import { BenchmarkInterceptor } from '../interceptors/benchmark.interceptor';
 
 @ApiTags('BankEmployees')
 @Controller('bank-employees')
+@UseInterceptors(CacheInterceptor)
+@UseInterceptors(BenchmarkInterceptor)
 export class BankEmployeesController {
   constructor(private readonly bankEmployeesService: BankEmployeesService) {}
 
@@ -56,6 +63,8 @@ export class BankEmployeesController {
     type: BankEmployeeDto,
     isArray: true,
   })
+  @CacheKey('allBankEmployees')
+  @CacheTTL(15)
   findAll() {
     return this.bankEmployeesService.findAll();
   }
@@ -72,6 +81,7 @@ export class BankEmployeesController {
   @ApiNotFoundResponse({
     description: 'Bank employee not found',
   })
+  @CacheTTL(30)
   async findOne(@Param('id') id: string) {
     const bankEmployee = await this.bankEmployeesService.findOne(id);
     if (bankEmployee) return bankEmployee;
