@@ -4,14 +4,14 @@ import { AppService } from './app.service';
 import { BankAccountsModule } from './bank-accounts/bank-accounts.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BankAccountTypesModule } from './bank-account-types/bank-account-types.module';
-import { BankEmployeesModule } from './bank-employees/bank-employees.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
     BankAccountsModule,
     BankAccountTypesModule,
-    BankEmployeesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

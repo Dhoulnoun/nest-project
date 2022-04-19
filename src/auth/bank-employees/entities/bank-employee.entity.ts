@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('bankEmployee')
 export class BankEmployee {
@@ -17,6 +17,14 @@ export class BankEmployee {
   @Column({ type: 'varchar' })
   job: string;
 
-  @Column({ unique: true, type: 'varchar' })
+  @Index('unique-user-email', { unique: true })
+  @Column({ nullable: false, type: 'varchar' })
   email: string;
+
+  @Index('unique-user-salt', { unique: true })
+  @Column({ nullable: false, length: 512 })
+  salt?: string;
+
+  @Column({ nullable: false, length: 512 })
+  password: string;
 }
