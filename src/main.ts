@@ -6,6 +6,7 @@ import { HttpExceptionFilter } from './filters/http-exception.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalFilters(new HttpExceptionFilter());
+  app.setGlobalPrefix('v2');
 
   const options = new DocumentBuilder()
     .setTitle('Training Project for NestJS')
@@ -14,7 +15,7 @@ async function bootstrap() {
       'I am trying to learn NestJS, so this is my attempt at applying what I learned',
     )
 
-    .setVersion('1.0.0')
+    .setVersion('0.2.1')
 
     .build();
   const document = SwaggerModule.createDocument(app, options);
