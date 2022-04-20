@@ -1,6 +1,5 @@
 {
   "type": "postgres",
-  "url": "process.env.DATABASE_URL",
   "autoLoadEntities": true,
   "host": "postgres",
   "port": 5432,

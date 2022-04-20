@@ -5,9 +5,13 @@ import { BankAccountsModule } from './bank-accounts/bank-accounts.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BankAccountTypesModule } from './bank-account-types/bank-account-types.module';
 import { BankEmployeesModule } from './bank-employees/bank-employees.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot(),
     BankAccountsModule,
     BankAccountTypesModule,
