@@ -6,8 +6,6 @@ import {
   Post,
 } from '@nestjs/common';
 import { RegistrationStatus } from './interfaces/registration-status.interface';
-import { CreateUserDto } from '../users/dto/create-user.dto';
-import { LoginUserDto } from '../users/dto/login-user-dto';
 import { LoginStatus } from './interfaces/login-status.interface';
 import { AuthService } from './auth.service';
 import { CreateBankEmployeeDto } from '../bank-employees/dto/create-bank-employee.dto';

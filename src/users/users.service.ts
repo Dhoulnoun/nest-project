@@ -4,8 +4,8 @@ import { UserEntity } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { UserDto } from './dto/user.dto';
 import { toUserDto } from '../utils/mapper';
-import { LoginUserDto } from './dto/login-user-dto';
-import { comparePasswords } from '../utils/utils';
+// import { LoginUserDto } from './dto/login-user-dto';
+// import { comparePasswords } from '../utils/utils';
 import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
@@ -36,19 +36,19 @@ export class UsersService {
     return toUserDto(user);
   }
 
-  async findByLogin({ username, password }: LoginUserDto): Promise<UserDto> {
-    const user = await this.userRepository.findOne({ where: { username } });
-    if (!user)
-      throw new HttpException('User not found', HttpStatus.UNAUTHORIZED);
-
-    const areEqual = await comparePasswords(user.password, password);
-    if (!areEqual)
-      throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
-
-    return toUserDto(user);
-  }
-
-  async findByPayLoad({ username }: any): Promise<UserDto> {
-    return await this.findOne({ where: { username } });
-  }
+  // async findByLogin({ username, password }: LoginUserDto): Promise<UserDto> {
+  //   const user = await this.userRepository.findOne({ where: { username } });
+  //   if (!user)
+  //     throw new HttpException('User not found', HttpStatus.UNAUTHORIZED);
+  //
+  //   const areEqual = await comparePasswords(user.password, password);
+  //   if (!areEqual)
+  //     throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
+  //
+  //   return toUserDto(user);
+  // }
+  //
+  // async findByPayLoad({ username }: any): Promise<UserDto> {
+  //   return await this.findOne({ where: { username } });
+  // }
 }

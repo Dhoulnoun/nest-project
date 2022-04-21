@@ -41,14 +41,14 @@ export class BankAccountsService {
     return bankAccount;
   }
 
-  async addToBalance(id: number, sum: number) {
-    const bankAccount = await this.bankAccountsRepository.findOne(id);
-    console.log(bankAccount.balance);
-    console.log('sum = ' + sum);
-    if (!bankAccount || sum <= 0) return null;
-    bankAccount.balance =
-      parseInt(bankAccount.balance as undefined as string) + sum;
-    await this.bankAccountsRepository.update(id, bankAccount);
-    return await this.bankAccountsRepository.findOne(id);
-  }
+  // async addToBalance(id: number, sum: number) {
+  //   const bankAccount = await this.bankAccountsRepository.findOne(id);
+  //   console.log(bankAccount.balance);
+  //   console.log('sum = ' + sum);
+  //   if (!bankAccount || sum <= 0) return null;
+  //   bankAccount.balance =
+  //     parseInt(bankAccount.balance as undefined as string) + sum;
+  //   await this.bankAccountsRepository.update(id, bankAccount);
+  //   return await this.bankAccountsRepository.findOne(id);
+  // }
 }
