@@ -9,7 +9,7 @@ export class UserEntity {
     nullable: false,
     unique: true,
   })
-  username: string;
+  login: string;
 
   @Column({
     type: 'varchar',

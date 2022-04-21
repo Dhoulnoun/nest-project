@@ -5,19 +5,19 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
+import { jwtConstants } from './constants/jwt.constant';
+import { BankEmployeesModule } from '../bank-employees/bank-employees.module';
 
 @Module({
   imports: [
     UsersModule,
+    BankEmployeesModule,
     PassportModule.register({
       defaultStrategy: 'jwt',
       property: 'user',
       session: false,
     }),
-    JwtModule.register({
-      secret: 'AllYourBaseAreBelongToUs',
-      signOptions: { expiresIn: 18000 },
-    }),
+    JwtModule.register(jwtConstants),
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],

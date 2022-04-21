@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 @Entity('bankEmployee')
 export class BankEmployee {
@@ -17,6 +18,16 @@ export class BankEmployee {
   @Column({ type: 'varchar' })
   job: string;
 
-  @Column({ unique: true, type: 'varchar' })
+  @Column({ unique: true, type: 'varchar', nullable: false })
   email: string;
+
+  @Column({ type: 'varchar', nullable: false, unique: true })
+  login: string;
+
+  @Column({ type: 'varchar', nullable: false })
+  password: string;
+
+  @BeforeInsert() async hashPassword() {
+    this.password = await bcrypt.hash(this.password, 10);
+  }
 }

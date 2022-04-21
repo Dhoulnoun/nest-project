@@ -6,10 +6,12 @@ import { BankAccountEntity } from './entities/bank-account.entity';
 import { BankAccountTypeEntity } from '../bank-account-types/entities/bank-account-type.entity';
 import { UsersModule } from '../users/users.module';
 import { AuthModule } from '../auth/auth.module';
+import { BankEmployeesModule } from '../bank-employees/bank-employees.module';
 
 @Module({
   imports: [
     UsersModule,
+    BankEmployeesModule,
     AuthModule,
     TypeOrmModule.forFeature([BankAccountEntity, BankAccountTypeEntity]),
   ],

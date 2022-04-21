@@ -21,6 +21,7 @@ import { AuditMiddleware } from '../middlewares/audit.middleware';
   ],
   controllers: [BankEmployeesController],
   providers: [BankEmployeesService],
+  exports: [BankEmployeesService],
 })
 export class BankEmployeesModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

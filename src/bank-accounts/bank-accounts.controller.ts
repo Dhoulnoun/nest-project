@@ -113,6 +113,8 @@ export class BankAccountsController {
     description: "The bank account's id",
   })
   @UsePipes(ValidationPipe)
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard())
   async update(
     @Param() { id }: { id: number },
     @Body() updateBankAccountDto: UpdateBankAccountDto,
@@ -138,6 +140,8 @@ export class BankAccountsController {
     description: 'Bank account not found',
   })
   @UsePipes(ValidationPipe)
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard())
   async remove(@Param('id') id: number) {
     const bankAccount = await this.bankAccountsService.remove(id);
     if (bankAccount) return bankAccount;

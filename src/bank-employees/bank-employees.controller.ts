@@ -82,8 +82,8 @@ export class BankEmployeesController {
     description: 'Bank employee not found',
   })
   @CacheTTL(30)
-  async findOne(@Param('id') id: string) {
-    const bankEmployee = await this.bankEmployeesService.findOne(id);
+  async findOneById(@Param('id') id: string) {
+    const bankEmployee = await this.bankEmployeesService.findById(id);
     if (bankEmployee) return bankEmployee;
     throw new HttpException('Employee not found', HttpStatus.NOT_FOUND);
   }

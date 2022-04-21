@@ -10,6 +10,8 @@ import { CreateUserDto } from '../users/dto/create-user.dto';
 import { LoginUserDto } from '../users/dto/login-user-dto';
 import { LoginStatus } from './interfaces/login-status.interface';
 import { AuthService } from './auth.service';
+import { CreateBankEmployeeDto } from '../bank-employees/dto/create-bank-employee.dto';
+import { LoginBankEmployeeDto } from '../bank-employees/dto/login-bank-employee.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -17,10 +19,10 @@ export class AuthController {
 
   @Post('register')
   public async register(
-    @Body() createUserDto: CreateUserDto,
+    @Body() createBankEmployee: CreateBankEmployeeDto,
   ): Promise<RegistrationStatus> {
     const result: RegistrationStatus = await this.authService.register(
-      createUserDto,
+      createBankEmployee,
     );
     if (!result.success)
       throw new HttpException(result.message, HttpStatus.BAD_REQUEST);
@@ -29,7 +31,9 @@ export class AuthController {
   }
 
   @Post('login')
-  public async login(@Body() loginUserDto: LoginUserDto): Promise<LoginStatus> {
-    return await this.authService.login(loginUserDto);
+  public async login(
+    @Body() loginBankEmployeeDto: LoginBankEmployeeDto,
+  ): Promise<LoginStatus> {
+    return await this.authService.login(loginBankEmployeeDto);
   }
 }

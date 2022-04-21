@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, IsUUID } from 'class-validator';
 
 export class BankEmployeeDto {
   @ApiProperty({
@@ -8,6 +8,7 @@ export class BankEmployeeDto {
     description: 'uuid of the employee',
   })
   @IsUUID()
+  @IsNotEmpty()
   id: string;
 
   @ApiProperty({
@@ -33,6 +34,8 @@ export class BankEmployeeDto {
     description: ' Salary of the bank employee',
     type: 'number',
   })
+  @IsNotEmpty()
+  @IsNumber()
   salary: number;
 
   @ApiProperty({
@@ -43,6 +46,15 @@ export class BankEmployeeDto {
   @IsString()
   @IsNotEmpty()
   job: string;
+
+  @ApiProperty({
+    required: true,
+    description: 'Bank employee unique login',
+    type: String,
+  })
+  @IsString()
+  @IsNotEmpty()
+  login: string;
 
   @ApiProperty({
     required: true,

@@ -8,11 +8,13 @@ import {
   Delete,
   HttpException,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { BankAccountTypesService } from './bank-account-types.service';
 import { CreateBankAccountTypeDto } from './dto/create-bank-account-type.dto';
 import { UpdateBankAccountTypeDto } from './dto/update-bank-account-type.dto';
 import {
+  ApiBearerAuth,
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -22,6 +24,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { BankAccountTypeDto } from './dto/bank-account-type.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('BankAccountTypes')
 @Controller('bank-account-types')
@@ -40,6 +43,8 @@ export class BankAccountTypesController {
     status: 304,
     description: 'Unable to create a new bank account type.',
   })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard())
   async create(@Body() createBankAccountTypeDto: CreateBankAccountTypeDto) {
     const bankAccountType = await this.bankAccountTypesService.create(
       createBankAccountTypeDto,
@@ -99,6 +104,8 @@ export class BankAccountTypesController {
     name: 'id',
     description: "The bank account type's id",
   })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard())
   update(
     @Param() { id }: { id: number },
     @Body() updateBankAccountTypeDto: UpdateBankAccountTypeDto,
@@ -123,6 +130,8 @@ export class BankAccountTypesController {
   @ApiNotFoundResponse({
     description: 'Bank account type not found',
   })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard())
   async remove(@Param('id') id: number) {
     const bankAccountType = await this.bankAccountTypesService.remove(id);
     if (bankAccountType) return bankAccountType;

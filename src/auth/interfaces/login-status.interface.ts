@@ -1,5 +1,5 @@
 export interface LoginStatus {
-  username: string;
+  login: string;
   accessToken: any;
   expiresIn: any;
 }

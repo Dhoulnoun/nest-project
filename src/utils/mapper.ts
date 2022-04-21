@@ -1,14 +1,20 @@
 import { UserEntity } from '../users/entities/user.entity';
 import { UserDto } from '../users/dto/user.dto';
+import { BankEmployee } from '../bank-employees/entities/bank-employee.entity';
+import { BankEmployeeDto } from '../bank-employees/dto/bank-employee.dto';
 
 export const toUserDto = (data: UserEntity): UserDto => {
-  const { id, username, email } = data;
+  const { id, login, email } = data;
 
-  let userDto: UserDto = {
+  return {
     id,
-    username,
+    login,
     email,
   };
+};
 
-  return userDto;
+export const toBankEmployeeDto = (data: BankEmployee): BankEmployeeDto => {
+  const { id, name, lastName, salary, job, email, login } = data;
+
+  return { id, name, lastName, salary, job, email, login };
 };
