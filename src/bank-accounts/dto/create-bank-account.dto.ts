@@ -1,6 +1,18 @@
-import { OmitType } from '@nestjs/mapped-types';
-import { BankAccountDto } from './bank-account.dto';
+import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 
-export class CreateBankAccountDto extends OmitType(BankAccountDto, [
-  'id',
-] as const) {}
+export class CreateBankAccountDto {
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  lastName: string;
+
+  @IsInt()
+  @IsNotEmpty()
+  balance: number;
+
+  @IsNotEmpty()
+  type: number;
+}

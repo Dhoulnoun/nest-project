@@ -28,7 +28,6 @@ import {
 } from '@nestjs/swagger';
 import { BankAccountDto } from './dto/bank-account.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { UserDto } from '../users/dto/user.dto';
 
 @ApiTags('BankAccounts')
 @Controller('bank-accounts')
@@ -50,9 +49,7 @@ export class BankAccountsController {
   @ApiBearerAuth()
   @UsePipes(ValidationPipe)
   @UseGuards(AuthGuard())
-  async create(
-    @Body() createBankAccountDto: CreateBankAccountDto,
-  ): Promise<BankAccountDto> {
+  async create(@Body() createBankAccountDto: CreateBankAccountDto) {
     const bankAccount = await this.bankAccountsService.create(
       createBankAccountDto,
     );

@@ -11,8 +11,8 @@ export class BankAccountsService {
     @InjectRepository(BankAccountEntity)
     private readonly bankAccountsRepository: Repository<BankAccountEntity>,
   ) {}
-  async create(createBankAccountDto: CreateBankAccountDto) {
-    return await this.bankAccountsRepository.save(createBankAccountDto);
+  async create(bankAccountDto: CreateBankAccountDto) {
+    return await this.bankAccountsRepository.save(bankAccountDto);
   }
 
   findAll() {

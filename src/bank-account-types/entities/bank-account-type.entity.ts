@@ -13,11 +13,11 @@ export class BankAccountTypeEntity {
   id: number;
 
   @Column({
-    type: 'enum',
-    enum: BankAccountType,
-    default: BankAccountType['Livret A'],
+    type: 'varchar',
+    default: 'Livret A',
+    unique: true,
   })
-  type: BankAccountType;
+  type: string;
 
   @OneToMany(() => BankAccountEntity, (bankAccount) => bankAccount.id)
   Accounts: BankAccountEntity[];

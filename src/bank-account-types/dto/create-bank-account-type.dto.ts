@@ -1,6 +1,7 @@
-import { OmitType } from '@nestjs/swagger';
-import { BankAccountTypeDto } from './bank-account-type.dto';
+import { IsNotEmpty, IsString } from 'class-validator';
 
-export class CreateBankAccountTypeDto extends OmitType(BankAccountTypeDto, [
-  'id',
-] as const) {}
+export class CreateBankAccountTypeDto {
+  @IsNotEmpty()
+  @IsString()
+  type: string;
+}

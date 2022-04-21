@@ -5,20 +5,17 @@ import {
   UpdateDateColumn,
   ManyToOne,
 } from 'typeorm';
-import {
-  BankAccountType,
-  BankAccountTypeEntity,
-} from '../../bank-account-types/entities/bank-account-type.entity';
+import { BankAccountTypeEntity } from '../../bank-account-types/entities/bank-account-type.entity';
 
 @Entity('bankAccount')
 export class BankAccountEntity {
   @PrimaryGeneratedColumn({ name: 'id_account' })
   id: number;
 
-  @Column()
+  @Column({ type: 'varchar', nullable: false })
   name: string;
 
-  @Column()
+  @Column({ type: 'varchar', nullable: false })
   lastName: string;
 
   @Column({ type: 'int', default: 0 })
@@ -28,7 +25,8 @@ export class BankAccountEntity {
   lastTransaction: Date;
 
   @ManyToOne(() => BankAccountTypeEntity, (type) => type.type, {
-    onDelete: 'SET NULL',
+    onDelete: 'CASCADE',
+    nullable: false,
   })
-  type: BankAccountType;
+  type: number;
 }

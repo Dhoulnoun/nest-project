@@ -60,7 +60,8 @@ export class AuthService {
 
   private _createToken({ login }: BankEmployeeDto): any {
     const bankEmployee: JwtPayload = { login };
-    return this.jwtService.sign(bankEmployee);
+    const accessToken = this.jwtService.sign(bankEmployee);
+    return { accessToken };
   }
 
   async validateBankEmployee(payload: JwtPayload): Promise<BankEmployeeDto> {
