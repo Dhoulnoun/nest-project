@@ -17,6 +17,8 @@ async function bootstrap() {
 
     .setVersion('0.2.1')
 
+    .addBearerAuth()
+
     .build();
   const document = SwaggerModule.createDocument(app, options);
 
