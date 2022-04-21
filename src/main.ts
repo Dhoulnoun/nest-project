@@ -15,7 +15,9 @@ async function bootstrap() {
       'I am trying to learn NestJS, so this is my attempt at applying what I learned',
     )
 
-    .setVersion('0.2.1')
+    .setVersion('0.2.2')
+
+    .addBearerAuth()
 
     .build();
   const document = SwaggerModule.createDocument(app, options);
