@@ -2,6 +2,7 @@ import {
   BeforeInsert,
   Column,
   Entity,
+  JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -38,7 +39,10 @@ export class BankEmployee {
   @Column({ type: 'enum', enum: Role, default: Role.BASICEMP })
   role: Role;
 
-  @ManyToMany(() => Project, (project) => project.bankEmployees)
+  @ManyToMany(() => Project, (project) => project.bankEmployees, {
+    cascade: true, eager: true
+  })
+  @JoinTable()
   projects: Project[];
 
   @BeforeInsert() async hashPassword() {

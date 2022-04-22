@@ -7,6 +7,7 @@ import {
   IsUUID,
 } from 'class-validator';
 import { Role } from '../role.enum';
+import { Project } from "../../projects/entities/project.entity";
 
 export class BankEmployeeDto {
   @ApiProperty({
@@ -80,4 +81,12 @@ export class BankEmployeeDto {
   })
   @IsOptional()
   role: Role;
+  @ApiProperty({
+    required: false,
+    description: 'projects of the bank employee',
+    type: 'array',
+    nullable: true,
+  })
+  @IsOptional()
+  projects: Project[];
 }
