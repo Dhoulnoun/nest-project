@@ -28,6 +28,7 @@ import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('BankAccountTypes')
 @Controller('bank-account-types')
+@UseGuards(AuthGuard())
 export class BankAccountTypesController {
   constructor(
     private readonly bankAccountTypesService: BankAccountTypesService,
@@ -44,7 +45,6 @@ export class BankAccountTypesController {
     description: 'Unable to create a new bank account type.',
   })
   @ApiBearerAuth()
-  @UseGuards(AuthGuard())
   async create(@Body() createBankAccountTypeDto: CreateBankAccountTypeDto) {
     const bankAccountType = await this.bankAccountTypesService.create(
       createBankAccountTypeDto,

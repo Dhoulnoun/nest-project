@@ -28,6 +28,7 @@ import {
 
 import { BankEmployeeDto } from './dto/bank-employee.dto';
 import { BenchmarkInterceptor } from '../interceptors/benchmark.interceptor';
+import { Role } from "./role.enum";
 
 @ApiTags('BankEmployees')
 @Controller('bank-employees')
@@ -86,6 +87,23 @@ export class BankEmployeesController {
     const bankEmployee = await this.bankEmployeesService.findById(id);
     if (bankEmployee) return bankEmployee;
     throw new HttpException('Employee not found', HttpStatus.NOT_FOUND);
+  }
+  @Get(':role')
+  @ApiOperation({
+    summary: 'Returns all employee with role',
+    description: 'Returns all specific employees account found by role',
+  })
+  @ApiOkResponse({
+    description: 'Bank employees successfully returned',
+    type: BankEmployeeDto,
+    isArray: true,
+  })
+  @ApiNotFoundResponse({
+    description: 'Bank employees not found with this role',
+  })
+  @CacheTTL(30)
+  async findOneByRole(@Param('role') role: Role) {
+    return await this.bankEmployeesService.findByRole(role);
   }
 
   @Patch(':id')

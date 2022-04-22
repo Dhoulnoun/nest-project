@@ -90,6 +90,10 @@ export class BankEmployeesService {
     return await this.findOne({ where: { login } });
   }
 
+  async findByRole({ role }: any): Promise<BankEmployeeDto> {
+    return await this.findOne({ where: { role } });
+  }
+
   async update(id: string, updateBankEmployeeDto: UpdateBankEmployeeDto) {
     const bankEmployee = await this.bankEmployeesRepository.findOne(id);
     if (!bankEmployee) return null;
