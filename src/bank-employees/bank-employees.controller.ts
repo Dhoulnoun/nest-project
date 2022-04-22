@@ -12,6 +12,7 @@ import {
   CacheTTL,
   UseInterceptors,
   CacheInterceptor,
+  Put,
 } from '@nestjs/common';
 import { BankEmployeesService } from './bank-employees.service';
 import { CreateBankEmployeeDto } from './dto/create-bank-employee.dto';
@@ -28,6 +29,8 @@ import {
 
 import { BankEmployeeDto } from './dto/bank-employee.dto';
 import { BenchmarkInterceptor } from '../interceptors/benchmark.interceptor';
+import { Role } from './role.enum';
+import { ParticipantDto } from './dto/participant.dto';
 
 @ApiTags('BankEmployees')
 @Controller('bank-employees')
@@ -87,6 +90,23 @@ export class BankEmployeesController {
     if (bankEmployee) return bankEmployee;
     throw new HttpException('Employee not found', HttpStatus.NOT_FOUND);
   }
+  @Get(':role')
+  @ApiOperation({
+    summary: 'Returns all employee with role',
+    description: 'Returns all specific employees account found by role',
+  })
+  @ApiOkResponse({
+    description: 'Bank employees successfully returned',
+    type: BankEmployeeDto,
+    isArray: true,
+  })
+  @ApiNotFoundResponse({
+    description: 'Bank employees not found with this role',
+  })
+  @CacheTTL(30)
+  async findOneByRole(@Param('role') role: Role) {
+    return await this.bankEmployeesService.findByRole(role);
+  }
 
   @Patch(':id')
   @ApiOperation({
@@ -136,5 +156,43 @@ export class BankEmployeesController {
     const bankEmployee = await this.bankEmployeesService.remove(id);
     if (bankEmployee) return bankEmployee;
     throw new HttpException('Employee not found', HttpStatus.NOT_FOUND);
+  }
+
+  @Post(':employeeId/add/projects/:projectId')
+  @ApiOperation({
+    summary: 'adds project to employee',
+    description:
+      'adding a specific project found by projectId to a specific bank employee found by employeeId',
+  })
+  @ApiOkResponse({
+    description: 'Project successfully added to employee.',
+    type: BankEmployeeDto,
+  })
+  @ApiResponse({
+    status: 304,
+    description: 'Unable to add project to the bank employee.',
+  })
+  @ApiNotFoundResponse({
+    description: '- Bank employee not found.\
+    - Project not found',
+  })
+  @ApiParam({
+    name: 'projectId',
+    description: "The project's internal ID",
+  })
+  @ApiParam({
+    name: 'employeeId',
+    description: "The employee's internal employeeId",
+  })
+  async addProject(
+    @Param()
+    { employeeId, projectId }: { employeeId: string; projectId: number },
+  ) {
+    const bankEmployee = await this.bankEmployeesService.addProject({
+      employeeId,
+      projectId,
+    });
+    if (bankEmployee) return bankEmployee;
+    throw new HttpException('Not Modified', HttpStatus.NOT_MODIFIED);
   }
 }

@@ -30,6 +30,7 @@ import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('BankAccounts')
 @Controller('bank-accounts')
+@UseGuards(AuthGuard())
 export class BankAccountsController {
   constructor(private readonly bankAccountsService: BankAccountsService) {}
 
@@ -47,7 +48,6 @@ export class BankAccountsController {
   })
   @ApiBearerAuth()
   @UsePipes(ValidationPipe)
-  @UseGuards(AuthGuard())
   async create(@Body() createBankAccountDto: CreateBankAccountDto) {
     const bankAccount = await this.bankAccountsService.create(
       createBankAccountDto,
@@ -110,7 +110,6 @@ export class BankAccountsController {
   })
   @UsePipes(ValidationPipe)
   @ApiBearerAuth()
-  @UseGuards(AuthGuard())
   async update(
     @Param() { id }: { id: number },
     @Body() updateBankAccountDto: UpdateBankAccountDto,
@@ -137,7 +136,6 @@ export class BankAccountsController {
   })
   @UsePipes(ValidationPipe)
   @ApiBearerAuth()
-  @UseGuards(AuthGuard())
   async remove(@Param('id') id: number) {
     const bankAccount = await this.bankAccountsService.remove(id);
     if (bankAccount) return bankAccount;

@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsString, IsUUID } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
+import { Role } from '../role.enum';
+import { Project } from "../../projects/entities/project.entity";
 
 export class BankEmployeeDto {
   @ApiProperty({
@@ -64,4 +72,21 @@ export class BankEmployeeDto {
   @IsString()
   @IsNotEmpty()
   email: string;
+
+  @ApiProperty({
+    required: false,
+    description: 'role of the bank employee',
+    type: 'enum',
+    default: Role.BASICEMP,
+  })
+  @IsOptional()
+  role: Role;
+  @ApiProperty({
+    required: false,
+    description: 'projects of the bank employee',
+    type: 'array',
+    nullable: true,
+  })
+  @IsOptional()
+  projects: Project[];
 }
