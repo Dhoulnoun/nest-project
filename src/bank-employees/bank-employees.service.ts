@@ -10,7 +10,6 @@ import { LoginBankEmployeeDto } from './dto/login-bank-employee.dto';
 import { comparePasswords } from '../utils/utils';
 import { ParticipantDto } from './dto/participant.dto';
 import { Project } from '../projects/entities/project.entity';
-import { ProjectDto } from '../projects/dto/project.dto';
 
 @Injectable()
 export class BankEmployeesService {

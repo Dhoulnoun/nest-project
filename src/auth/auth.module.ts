@@ -7,6 +7,7 @@ import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 import { jwtConstants } from './constants/jwt.constant';
 import { BankEmployeesModule } from '../bank-employees/bank-employees.module';
+import { RolesGuard } from './guards/roles.guard';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { BankEmployeesModule } from '../bank-employees/bank-employees.module';
     JwtModule.register(jwtConstants),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, RolesGuard],
   exports: [PassportModule, JwtModule],
 })
 export class AuthModule {}

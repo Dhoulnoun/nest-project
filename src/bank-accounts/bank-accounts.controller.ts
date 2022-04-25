@@ -27,10 +27,15 @@ import {
 } from '@nestjs/swagger';
 import { BankAccountDto } from './dto/bank-account.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { Role } from '../bank-employees/role.enum';
 
 @ApiTags('BankAccounts')
 @Controller('bank-accounts')
-@UseGuards(AuthGuard())
+@UseGuards(AuthGuard(), RolesGuard)
+@Roles(Role.ADMIN)
+@ApiBearerAuth()
 export class BankAccountsController {
   constructor(private readonly bankAccountsService: BankAccountsService) {}
 

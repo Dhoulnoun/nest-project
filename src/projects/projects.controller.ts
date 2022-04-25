@@ -1,18 +1,20 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
   HttpException,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import {
+  ApiBearerAuth,
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -22,9 +24,15 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { ProjectDto } from './dto/project.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { Role } from '../bank-employees/role.enum';
 
 @ApiTags('projects')
 @Controller('projects')
+@UseGuards(AuthGuard(), RolesGuard)
+@ApiBearerAuth()
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
@@ -38,6 +46,7 @@ export class ProjectsController {
     status: 304,
     description: 'Unable to create a new Project.',
   })
+  @Roles(Role.ADMIN)
   async create(@Body() createProjectDto: CreateProjectDto) {
     const project = await this.projectsService.create(createProjectDto);
     if (project) return project;
@@ -53,6 +62,7 @@ export class ProjectsController {
     type: ProjectDto,
     isArray: true,
   })
+  @Roles(Role.ADMIN, Role.CONTRIBUTOR)
   findAll() {
     return this.projectsService.findAll();
   }
@@ -69,6 +79,7 @@ export class ProjectsController {
   @ApiNotFoundResponse({
     description: 'Project not found',
   })
+  @Roles(Role.CONTRIBUTOR, Role.ADMIN)
   async findOne(@Param('id') id: number) {
     const project = await this.projectsService.findOne(id);
     if (project) return project;
@@ -95,6 +106,7 @@ export class ProjectsController {
     name: 'id',
     description: "The project's id",
   })
+  @Roles(Role.ADMIN, Role.CONTRIBUTOR)
   update(
     @Param() { id }: { id: number },
     @Body() updateProjectDto: UpdateProjectDto,
@@ -116,6 +128,7 @@ export class ProjectsController {
   @ApiNotFoundResponse({
     description: 'Project not found',
   })
+  @Roles(Role.ADMIN)
   async remove(@Param('id') id: number) {
     const project = await this.projectsService.remove(id);
     if (project) return project;

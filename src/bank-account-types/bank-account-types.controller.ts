@@ -1,13 +1,13 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
   HttpException,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
   UseGuards,
 } from '@nestjs/common';
 import { BankAccountTypesService } from './bank-account-types.service';
@@ -25,10 +25,15 @@ import {
 } from '@nestjs/swagger';
 import { BankAccountTypeDto } from './dto/bank-account-type.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { Role } from '../bank-employees/role.enum';
+import { RolesGuard } from '../auth/guards/roles.guard';
 
 @ApiTags('BankAccountTypes')
 @Controller('bank-account-types')
-@UseGuards(AuthGuard())
+@UseGuards(AuthGuard(), RolesGuard)
+@Roles(Role.ADMIN)
+@ApiBearerAuth()
 export class BankAccountTypesController {
   constructor(
     private readonly bankAccountTypesService: BankAccountTypesService,

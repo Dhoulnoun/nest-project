@@ -40,7 +40,8 @@ export class BankEmployee {
   role: Role;
 
   @ManyToMany(() => Project, (project) => project.bankEmployees, {
-    cascade: true, eager: true
+    cascade: true,
+    eager: true,
   })
   @JoinTable()
   projects: Project[];

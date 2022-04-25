@@ -7,7 +7,7 @@ import {
   IsUUID,
 } from 'class-validator';
 import { Role } from '../role.enum';
-import { Project } from "../../projects/entities/project.entity";
+import { Project } from '../../projects/entities/project.entity';
 
 export class BankEmployeeDto {
   @ApiProperty({

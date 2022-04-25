@@ -14,6 +14,7 @@ import { Project } from '../projects/entities/project.entity';
 
 @Module({
   imports: [
+    // AuthModule,
     TypeOrmModule.forFeature([BankEmployee, Project]),
     CacheModule.register({
       ttl: 5, //sec
