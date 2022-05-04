@@ -1,17 +1,16 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
   HttpException,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
   UsePipes,
   ValidationPipe,
-  UseGuards,
-  Req,
 } from '@nestjs/common';
 import { BankAccountsService } from './bank-accounts.service';
 import { CreateBankAccountDto } from './dto/create-bank-account.dto';
@@ -28,9 +27,15 @@ import {
 } from '@nestjs/swagger';
 import { BankAccountDto } from './dto/bank-account.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { Role } from '../bank-employees/role.enum';
 
 @ApiTags('BankAccounts')
 @Controller('bank-accounts')
+@UseGuards(AuthGuard(), RolesGuard)
+@Roles(Role.ADMIN)
+@ApiBearerAuth()
 export class BankAccountsController {
   constructor(private readonly bankAccountsService: BankAccountsService) {}
 
@@ -48,7 +53,6 @@ export class BankAccountsController {
   })
   @ApiBearerAuth()
   @UsePipes(ValidationPipe)
-  @UseGuards(AuthGuard())
   async create(@Body() createBankAccountDto: CreateBankAccountDto) {
     const bankAccount = await this.bankAccountsService.create(
       createBankAccountDto,
@@ -111,7 +115,6 @@ export class BankAccountsController {
   })
   @UsePipes(ValidationPipe)
   @ApiBearerAuth()
-  @UseGuards(AuthGuard())
   async update(
     @Param() { id }: { id: number },
     @Body() updateBankAccountDto: UpdateBankAccountDto,
@@ -138,7 +141,6 @@ export class BankAccountsController {
   })
   @UsePipes(ValidationPipe)
   @ApiBearerAuth()
-  @UseGuards(AuthGuard())
   async remove(@Param('id') id: number) {
     const bankAccount = await this.bankAccountsService.remove(id);
     if (bankAccount) return bankAccount;

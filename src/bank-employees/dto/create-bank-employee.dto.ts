@@ -1,4 +1,12 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
+import { Project } from '../../projects/entities/project.entity';
+import { Role } from '../role.enum';
 
 export class CreateBankEmployeeDto {
   @IsNotEmpty()
@@ -20,4 +28,12 @@ export class CreateBankEmployeeDto {
   @IsNotEmpty()
   @IsNumber()
   salary: number;
+  @IsNotEmpty()
+  @IsOptional()
+  @IsString()
+  role: Role;
+  @IsNotEmpty()
+  @IsNumber()
+  @IsOptional()
+  projects: Project[];
 }

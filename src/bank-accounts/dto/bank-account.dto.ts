@@ -51,5 +51,5 @@ export class BankAccountDto {
     type: Number,
   })
   @IsNotEmpty()
-  type: Number;
+  type: number;
 }

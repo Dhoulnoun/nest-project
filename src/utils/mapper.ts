@@ -14,7 +14,8 @@ export const toUserDto = (data: UserEntity): UserDto => {
 };
 
 export const toBankEmployeeDto = (data: BankEmployee): BankEmployeeDto => {
-  const { id, name, lastName, salary, job, email, login } = data;
+  const { id, name, lastName, salary, job, email, login, role, projects } =
+    data;
 
-  return { id, name, lastName, salary, job, email, login };
+  return { id, name, lastName, salary, job, email, login, role, projects };
 };

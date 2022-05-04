@@ -8,12 +8,16 @@ import { toBankEmployeeDto } from '../utils/mapper';
 import { BankEmployeeDto } from './dto/bank-employee.dto';
 import { LoginBankEmployeeDto } from './dto/login-bank-employee.dto';
 import { comparePasswords } from '../utils/utils';
+import { ParticipantDto } from './dto/participant.dto';
+import { Project } from '../projects/entities/project.entity';
 
 @Injectable()
 export class BankEmployeesService {
   constructor(
     @InjectRepository(BankEmployee)
     private readonly bankEmployeesRepository: Repository<BankEmployee>,
+    @InjectRepository(Project)
+    private readonly projectRepository: Repository<Project>,
   ) {}
   async create(
     bankEmployeeDto: CreateBankEmployeeDto,
@@ -90,6 +94,10 @@ export class BankEmployeesService {
     return await this.findOne({ where: { login } });
   }
 
+  async findByRole({ role }: any): Promise<BankEmployeeDto> {
+    return await this.findOne({ where: { role } });
+  }
+
   async update(id: string, updateBankEmployeeDto: UpdateBankEmployeeDto) {
     const bankEmployee = await this.bankEmployeesRepository.findOne(id);
     if (!bankEmployee) return null;
@@ -102,5 +110,23 @@ export class BankEmployeesService {
     if (!bankEmployee) return null;
     await this.bankEmployeesRepository.remove(bankEmployee);
     return bankEmployee;
+  }
+
+  async addProject(participantDto: ParticipantDto) {
+    const bankEmployee = await this.bankEmployeesRepository.findOne(
+      participantDto.employeeId,
+    );
+    const project = await this.projectRepository.findOne(
+      participantDto.projectId,
+    );
+    if (!bankEmployee || !project) return null;
+    if (bankEmployee.projects == null)
+      bankEmployee.projects = new Array<Project>();
+    bankEmployee.projects.push(project);
+    console.log(bankEmployee.projects);
+    await this.bankEmployeesRepository.save(toBankEmployeeDto(bankEmployee));
+    return await this.bankEmployeesRepository.findOne(
+      participantDto.employeeId,
+    );
   }
 }

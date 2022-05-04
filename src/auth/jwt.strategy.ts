@@ -2,7 +2,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { UserDto } from '../users/dto/user.dto';
+// import { UserDto } from '../users/dto/user.dto';
 import { JwtPayload } from './interfaces/payload.interface';
 import { jwtConstants } from './constants/jwt.constant';
 import { BankEmployeeDto } from '../bank-employees/dto/bank-employee.dto';

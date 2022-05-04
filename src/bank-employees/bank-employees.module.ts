@@ -10,10 +10,12 @@ import { BankEmployeesController } from './bank-employees.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BankEmployee } from './entities/bank-employee.entity';
 import { AuditMiddleware } from '../middlewares/audit.middleware';
+import { Project } from '../projects/entities/project.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([BankEmployee]),
+    // AuthModule,
+    TypeOrmModule.forFeature([BankEmployee, Project]),
     CacheModule.register({
       ttl: 5, //sec
       max: 100, //max number of items in cache
